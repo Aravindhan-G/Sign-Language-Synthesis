@@ -1,0 +1,25 @@
+<body>
+    <meta http-equiv="refresh" content="4">
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %} {% if category == 'error' %}
+
+        <script>
+            alert('{{message}}');
+        </script>
+
+        {% else %}
+        <script>
+            alert('{{message}}');
+        </script>
+        {% endif %} {% endfor %} {% endif %} {% endwith %}
+        <div class="row">
+            <div class="col-lg-8  offset-lg-2">
+                <h3 class="mt-5">Live Streaming</h3>
+                <img src="{{ url_for('detect.video_feed') }}" width="50%">
+                <br>
+                <p>Predicted Text - {{ text_feed }}
+                </p>
+            </div>
+        </div>
+    </div>
+</body>

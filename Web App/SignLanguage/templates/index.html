@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>
+        Language Synthesizer
+    </title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript">
+    </script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js">
+    </script>
+</head>
+
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %} {% if category == 'error' %}
+
+    <script>
+        alert('{{message}}');
+    </script>
+
+    {% else %}
+    <script>
+        alert('{{message}}');
+    </script>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <h5 class="card-header h5 text-center">
+                        Language Synthesizer
+                    </h5>
+                    <div class="card-body">
+                        <div class="col-lg-8  offset-lg-2">
+                            <h3 class="mt-5">Live Streaming</h3>
+                            <img src="{{ url_for('detect.video_feed') }}" width="100%" id="video">
+                        </div>
+                        <h3 align="center" id="text_feed"> </h3>
+                        <script>
+                            setInterval(loadDoc, 4000);
+
+                            function loadDoc() {
+                                var xhttp = new XMLHttpRequest();
+                                xhttp.onreadystatechange = function() {
+                                    if (this.readyState == 4 && this.status == 200) {
+                                        var prev = document.getElementById("text_feed").innerHTML;
+                                        if (prev != this.responseText) {
+                                            document.getElementById("text_feed").innerHTML = this.responseText;
+                                            speechSynthesis.speak(new SpeechSynthesisUtterance(this.responseText));
+                                        }
+                                    }
+                                };
+                                xhttp.open("GET", "{{ url_for('detect.text_feed') }}", true);
+                                xhttp.send();
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </script>
+</body>
+
+</html>

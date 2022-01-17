@@ -1,0 +1,40 @@
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <title>Login</title>
+
+    <link rel="stylesheet" href="{{ url_for('static',filename='home.css') }}">
+
+</head>
+
+<div id="login">
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %} {% if category == 'error' %}
+
+    <script>
+        alert('{{message}}');
+    </script>
+
+    {% else %}
+    <script>
+        alert('{{message}}');
+    </script>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+    <h2 align="right">Sign Language -> Speech</h2>
+    <form name='form-login' method='POST' action="/">
+        <span class="fontawesome-user"></span>
+        <input type="text" id="user" name="user" placeholder="Username">
+
+        <span class="fontawesome-lock"></span>
+        <input type="password" id="pass" name="pass" placeholder="Password">
+
+        <input type="submit" value="Login">
+        <br>
+        <p align="center">Dont have an account ? </p>
+        <a href="/signup">
+            <input type="button" value="Signup">
+        </a>
+    </form>
+
+
+</div>
